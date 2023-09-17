@@ -7,7 +7,7 @@ public record ServicoResponse(Integer id, String nomeServico, String descricao, 
     public ServicoResponse(ServicoEntity servicoEntity){
         this(
                 servicoEntity.getId(),
-                servicoEntity.getNomeServico(),
+                servicoEntity.getNome(),
                 servicoEntity.getDescricao(),
                 servicoEntity.getValor()
         );

@@ -5,17 +5,15 @@ import lombok.Builder;
 import lombok.Getter;
 import org.hibernate.annotations.Immutable;
 
-import java.util.UUID;
-
 @Getter
 @Table(name = "SERVICO")
 @Entity
 @Immutable
 public class ServicoEntity {
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
 
-    String nomeServico;
+    String nome;
 
     String descricao;
 
@@ -25,9 +23,9 @@ public class ServicoEntity {
     }
 
     @Builder(toBuilder = true)
-    public ServicoEntity(Integer id, String nomeServico, String descricao, Double valor) {
+    public ServicoEntity(Integer id, String nome, String descricao, Double valor) {
         this.id = id;
-        this.nomeServico = nomeServico;
+        this.nome = nome;
         this.descricao = descricao;
         this.valor = valor;
     }
@@ -36,8 +34,8 @@ public class ServicoEntity {
         this.id = id;
     }
 
-    public void setNomeServico(String nomeServico) {
-        this.nomeServico = nomeServico;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public void setDescricao(String descricao) {
