@@ -35,22 +35,28 @@ public class ServicoController {
         return servicoService.getServicoById(id);
     }
 
-    @GetMapping("/buscar-por-nome")
+    @GetMapping("/busca-por-nome")
     @ResponseStatus(HttpStatus.OK)
     public ServicoResponse getServicoByNome(@RequestParam String nome){
         return servicoService.getServicoByNome(nome);
     }
 
-    @GetMapping("/buscar-por-descricao")
+    @GetMapping("/busca-por-descricao")
     @ResponseStatus(HttpStatus.OK)
     public ServicoResponse getServicoByDescricao(@RequestParam String descricao){
-        return servicoService.getServicoByNome(descricao);
+        return servicoService.getServicoByDescricao(descricao);
     }
 
-    @GetMapping("/buscar-por-valor")
+    @GetMapping("/busca-por-valor")
     @ResponseStatus(HttpStatus.OK)
     public ServicoResponse getServicoByValor(@RequestParam Double valor){
         return servicoService.getServicoByValor(valor);
+    }
+
+    @GetMapping("/busca-area-atuacao")
+    @ResponseStatus(HttpStatus.OK)
+    public ServicoResponse getServicoByAreaAtuacaoEsg(@RequestParam String areaAtuacaoEsg){
+        return servicoService.getServicoByAreaAtuacaoEsg(areaAtuacaoEsg);
     }
 
     @PutMapping("/{id}")
@@ -60,7 +66,7 @@ public class ServicoController {
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public String deleteServico(@PathVariable Integer id){
         return servicoService.deleteServico(id);
     }

@@ -2,6 +2,8 @@ package com.ethos.servicoapi.service;
 
 import com.ethos.servicoapi.controller.request.ServicoRequest;
 import com.ethos.servicoapi.controller.response.ServicoResponse;
+import com.ethos.servicoapi.exception.ServicoException;
+import com.ethos.servicoapi.exception.ServicoNotFoundException;
 import com.ethos.servicoapi.mapper.ServicoEntityMapper;
 import com.ethos.servicoapi.repository.ServicoRepository;
 import com.ethos.servicoapi.repository.entity.ServicoEntity;
@@ -30,7 +32,7 @@ public class ServicoService {
     public ServicoResponse getServicoById(Integer id){
         Optional<ServicoEntity> servico = repository.findById(id);
         if (servico.isEmpty()){
-            return null;
+            throw new ServicoNotFoundException(String.format("Serviço não encontrado."));
         }
         return servico.map(ServicoResponse::new).get();
     }
@@ -38,7 +40,7 @@ public class ServicoService {
     public ServicoResponse getServicoByNome(String nome){
         Optional<ServicoEntity> servico = repository.findByNome(nome);
         if (servico.isEmpty()){
-            return null;
+            throw new ServicoException(String.format("O serviço com o nome %s não existe.", nome));
         }
         return servico.map(ServicoResponse::new).get();
     }
@@ -46,7 +48,7 @@ public class ServicoService {
     public ServicoResponse getServicoByDescricao(String descricao){
         Optional<ServicoEntity> servico = repository.findByDescricao(descricao);
         if(servico.isEmpty()){
-            return null;
+            throw new ServicoException(String.format("O serviço com a descrição %s não existe.", descricao));
         }
         return servico.map(ServicoResponse::new).get();
     }
@@ -62,16 +64,21 @@ public class ServicoService {
     public ServicoResponse getServicoByNomeAndDescricao(String nome, String descricao){
         Optional<ServicoEntity> servico = repository.findByNomeAndDescricao(nome, descricao);
         if (servico.isEmpty()){
-            return null;
+            throw new ServicoException(String.format("O serviço com o nome %s e descriação %s não existe.", nome, descricao));
         }
         return servico.map(ServicoResponse::new).get();
+    }
+
+    public ServicoResponse getServicoByAreaAtuacaoEsg(String areaAtuacaoEsg){
+        Optional<ServicoEntity> servico = repository.findByAreaAtuacaoEsg(areaAtuacaoEsg);
+        return null;
     }
 
     public ServicoResponse putServico(Integer id, ServicoRequest request) {
         final Optional<ServicoEntity> servicoAtualizado = repository.findById(id);
 
         if (servicoAtualizado.isEmpty()){
-            return null;
+            throw new ServicoNotFoundException(String.format("Serviço não encontrado."));
         }
         if (request.nomeServico() != null && !request.nomeServico().isEmpty()) {
             servicoAtualizado.get().setNome(request.nomeServico());
@@ -81,6 +88,9 @@ public class ServicoService {
         }
         if (request.valor() != null && request.valor() > 0){
             servicoAtualizado.get().setValor(request.valor());
+        }
+        if (request.areaAtuacaoEsg() != null && !request.areaAtuacaoEsg().isEmpty()){
+            servicoAtualizado.get().setAreaAtuacaoEsg(request.areaAtuacaoEsg());
         }
 
         repository.save(servicoAtualizado.get());

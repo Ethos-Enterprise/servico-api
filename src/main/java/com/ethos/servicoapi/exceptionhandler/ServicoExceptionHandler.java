@@ -1,5 +1,7 @@
 package com.ethos.servicoapi.exceptionhandler;
 
+import com.ethos.servicoapi.exception.ServicoException;
+import com.ethos.servicoapi.exception.ServicoNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -23,4 +25,13 @@ public class ServicoExceptionHandler {
         }
     }
 
+    @ExceptionHandler(ServicoException.class)
+    public ResponseEntity<Void> servicoException(){
+        return ResponseEntity.noContent().build();
+    }
+
+    @ExceptionHandler(ServicoNotFoundException.class)
+    public ResponseEntity<Void> servicoNotFound(){
+        return ResponseEntity.notFound().build();
+    }
 }
