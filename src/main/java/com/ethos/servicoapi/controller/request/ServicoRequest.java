@@ -2,6 +2,8 @@ package com.ethos.servicoapi.controller.request;
 
 import jakarta.validation.constraints.*;
 
+import java.util.UUID;
+
 public record ServicoRequest(
         @NotBlank
         @Size (min = 5, max = 60)
@@ -16,6 +18,8 @@ public record ServicoRequest(
         Double valor,
 
         @NotBlank
-        @NotNull
-        String areaAtuacaoEsg){
+        String areaAtuacaoEsg,
+
+        @NotBlank
+        UUID fkPrestadoraServico){
 }

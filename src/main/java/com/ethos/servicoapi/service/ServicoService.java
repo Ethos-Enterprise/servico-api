@@ -37,41 +37,44 @@ public class ServicoService {
         return servico.map(ServicoResponse::new).get();
     }
 
-    public ServicoResponse getServicoByNome(String nome){
-        Optional<ServicoEntity> servico = repository.findByNome(nome);
+    public List<ServicoResponse> getServicoByNome(String nome){
+        List<ServicoEntity> servico = repository.findByNomeContains(nome);
         if (servico.isEmpty()){
             throw new ServicoException(String.format("O serviço com o nome %s não existe.", nome));
         }
-        return servico.map(ServicoResponse::new).get();
+        return servico.stream().map(ServicoResponse::new).toList();
     }
 
-    public ServicoResponse getServicoByDescricao(String descricao){
-        Optional<ServicoEntity> servico = repository.findByDescricao(descricao);
+    public List<ServicoResponse> getServicoByDescricao(String descricao){
+        List<ServicoEntity> servico = repository.findByDescricaoContains(descricao);
         if(servico.isEmpty()){
             throw new ServicoException(String.format("O serviço com a descrição %s não existe.", descricao));
         }
-        return servico.map(ServicoResponse::new).get();
+        return servico.stream().map(ServicoResponse::new).toList();
     }
 
-    public ServicoResponse getServicoByValor(Double valor){
-        Optional<ServicoEntity> servico = repository.findByValor(valor);
+    public List<ServicoResponse> getServicoByValor(Double valor){
+        List<ServicoEntity> servico = repository.findByValoroLessThanEqual(valor);
         if(servico.isEmpty()){
-            return null;
+            throw new ServicoException(String.format("O serviço com o valor R$%.2f ou abaixo dele não existe.", valor));
         }
-        return servico.map(ServicoResponse::new).get();
+        return servico.stream().map(ServicoResponse::new).toList();
     }
 
-    public ServicoResponse getServicoByNomeAndDescricao(String nome, String descricao){
-        Optional<ServicoEntity> servico = repository.findByNomeAndDescricao(nome, descricao);
+    public List<ServicoResponse> getServicoByNomeAndDescricao(String nome, String descricao){
+        List<ServicoEntity> servico = repository.findByNomeContainsAndDescricaoContains(nome, descricao);
         if (servico.isEmpty()){
             throw new ServicoException(String.format("O serviço com o nome %s e descriação %s não existe.", nome, descricao));
         }
-        return servico.map(ServicoResponse::new).get();
+        return servico.stream().map(ServicoResponse::new).toList();
     }
 
-    public ServicoResponse getServicoByAreaAtuacaoEsg(String areaAtuacaoEsg){
-        Optional<ServicoEntity> servico = repository.findByAreaAtuacaoEsg(areaAtuacaoEsg);
-        return null;
+    public List<ServicoResponse> getServicoByAreaAtuacaoEsg(String areaAtuacaoEsg){
+        List<ServicoEntity> servico = repository.findByAreaAtuacaoEsg(areaAtuacaoEsg);
+        if(servico.isEmpty()){
+            throw new ServicoException(String.format("O serviço com a área de atuação %s e descriação %s não existe.", areaAtuacaoEsg));
+        }
+        return servico.stream().map(ServicoResponse::new).toList();
     }
 
     public ServicoResponse putServico(Integer id, ServicoRequest request) {

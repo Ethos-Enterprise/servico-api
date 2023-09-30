@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.hibernate.annotations.Immutable;
 
+import java.util.UUID;
+
 @Data
 @AllArgsConstructor
 @Table(name = "SERVICO")
@@ -22,4 +24,6 @@ public class ServicoEntity {
     Double valor;
 
     String areaAtuacaoEsg;
+
+    UUID fkPrestadoraServico;
 }

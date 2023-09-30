@@ -37,25 +37,25 @@ public class ServicoController {
 
     @GetMapping("/busca-por-nome")
     @ResponseStatus(HttpStatus.OK)
-    public ServicoResponse getServicoByNome(@RequestParam String nome){
+    public List<ServicoResponse> getServicoByNome(@RequestParam String nome){
         return servicoService.getServicoByNome(nome);
     }
 
     @GetMapping("/busca-por-descricao")
     @ResponseStatus(HttpStatus.OK)
-    public ServicoResponse getServicoByDescricao(@RequestParam String descricao){
+    public List<ServicoResponse> getServicoByDescricao(@RequestParam String descricao){
         return servicoService.getServicoByDescricao(descricao);
     }
 
     @GetMapping("/busca-por-valor")
     @ResponseStatus(HttpStatus.OK)
-    public ServicoResponse getServicoByValor(@RequestParam Double valor){
+    public List<ServicoResponse> getServicoByValor(@RequestParam Double valor){
         return servicoService.getServicoByValor(valor);
     }
 
     @GetMapping("/busca-area-atuacao")
     @ResponseStatus(HttpStatus.OK)
-    public ServicoResponse getServicoByAreaAtuacaoEsg(@RequestParam String areaAtuacaoEsg){
+    public List<ServicoResponse> getServicoByAreaAtuacaoEsg(@RequestParam String areaAtuacaoEsg){
         return servicoService.getServicoByAreaAtuacaoEsg(areaAtuacaoEsg);
     }
 
