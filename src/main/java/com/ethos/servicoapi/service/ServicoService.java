@@ -4,7 +4,7 @@ import com.ethos.servicoapi.controller.request.ServicoRequest;
 import com.ethos.servicoapi.controller.response.ServicoResponse;
 import com.ethos.servicoapi.exception.ServicoException;
 import com.ethos.servicoapi.exception.ServicoNotFoundException;
-import com.ethos.servicoapi.mapper.ServicoEntityMapper;
+import com.ethos.servicoapi.mapper.ServicoMapper;
 import com.ethos.servicoapi.repository.ServicoRepository;
 import com.ethos.servicoapi.repository.entity.ServicoEntity;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +20,7 @@ public class ServicoService {
     private final ServicoRepository repository;
 
     public ServicoResponse postServico(ServicoRequest request) {
-        final ServicoEntity novoServico = ServicoEntityMapper.of(request);
+        final ServicoEntity novoServico = ServicoMapper.of(request);
         repository.save(novoServico);
         return new ServicoResponse(novoServico);
     }
@@ -38,7 +38,7 @@ public class ServicoService {
     }
 
     public List<ServicoResponse> getServicoByNome(String nome){
-        List<ServicoEntity> servico = repository.findByNomeContains(nome);
+        List<ServicoEntity> servico = repository.findByNomeContainsIgnoreCase(nome);
         if (servico.isEmpty()){
             throw new ServicoException(String.format("O serviço com o nome %s não existe.", nome));
         }
@@ -46,7 +46,7 @@ public class ServicoService {
     }
 
     public List<ServicoResponse> getServicoByDescricao(String descricao){
-        List<ServicoEntity> servico = repository.findByDescricaoContains(descricao);
+        List<ServicoEntity> servico = repository.findByDescricaoContainsIgnoreCase(descricao);
         if(servico.isEmpty()){
             throw new ServicoException(String.format("O serviço com a descrição %s não existe.", descricao));
         }
@@ -54,7 +54,7 @@ public class ServicoService {
     }
 
     public List<ServicoResponse> getServicoByValor(Double valor){
-        List<ServicoEntity> servico = repository.findByValoroLessThanEqual(valor);
+        List<ServicoEntity> servico = repository.findByValorLessThanEqual(valor);
         if(servico.isEmpty()){
             throw new ServicoException(String.format("O serviço com o valor R$%.2f ou abaixo dele não existe.", valor));
         }
@@ -62,17 +62,17 @@ public class ServicoService {
     }
 
     public List<ServicoResponse> getServicoByNomeAndDescricao(String nome, String descricao){
-        List<ServicoEntity> servico = repository.findByNomeContainsAndDescricaoContains(nome, descricao);
+        List<ServicoEntity> servico = repository.findByNomeContainsIgnoreCaseAndDescricaoContainsIgnoreCase(nome, descricao);
         if (servico.isEmpty()){
-            throw new ServicoException(String.format("O serviço com o nome %s e descriação %s não existe.", nome, descricao));
+            throw new ServicoException(String.format("O serviço com o nome %s e descrição %s não existe.", nome, descricao));
         }
         return servico.stream().map(ServicoResponse::new).toList();
     }
 
     public List<ServicoResponse> getServicoByAreaAtuacaoEsg(String areaAtuacaoEsg){
-        List<ServicoEntity> servico = repository.findByAreaAtuacaoEsg(areaAtuacaoEsg);
+        List<ServicoEntity> servico = repository.findByAreaAtuacaoEsgContainsIgnoreCase(areaAtuacaoEsg);
         if(servico.isEmpty()){
-            throw new ServicoException(String.format("O serviço com a área de atuação %s e descriação %s não existe.", areaAtuacaoEsg));
+            throw new ServicoException(String.format("O serviço com a área de atuação %s não existe", areaAtuacaoEsg));
         }
         return servico.stream().map(ServicoResponse::new).toList();
     }
@@ -104,5 +104,4 @@ public class ServicoService {
         repository.deleteById(id);
         return "Serviço deletado com sucesso.";
     }
-
 }

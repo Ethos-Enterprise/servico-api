@@ -1,14 +1,15 @@
 package com.ethos.servicoapi.repository.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
 import org.hibernate.annotations.Immutable;
 
 import java.util.UUID;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "SERVICO")
 @Entity
 @Immutable

@@ -20,6 +20,6 @@ public record ServicoRequest(
         @NotBlank
         String areaAtuacaoEsg,
 
-        @NotBlank
+        @NotNull
         UUID fkPrestadoraServico){
 }

@@ -1,19 +1,16 @@
 server:
-  port: 8082
-  error:
-    include-stacktrace: never
-
+  port: 8080
 spring:
   application:
-    name: empresa-app
+    name: avaliacao-api
+
   datasource:
     url: jdbc:mysql://localhost:3306/ethos
     username: root
     password: sptech
-    driver-class-name: com.mysql.cj.jdbc.Driver
 
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
-    generate-ddl: true # Criação do banco através do JPA
-    show-sql: true
     hibernate:
-      dialect: org.hibernate.dialect.MySQL5Dialect
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQLDialect
