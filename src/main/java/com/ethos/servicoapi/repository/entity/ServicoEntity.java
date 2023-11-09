@@ -16,7 +16,7 @@ import java.util.UUID;
 public class ServicoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
+    UUID id;
 
     String nome;
 

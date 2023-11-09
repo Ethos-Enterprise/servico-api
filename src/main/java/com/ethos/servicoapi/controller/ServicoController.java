@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(path = "/v1.0/servicos")
@@ -31,7 +32,7 @@ public class ServicoController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ServicoResponse getServicoById(@PathVariable Integer id){
+    public ServicoResponse getServicoById(@PathVariable UUID id){
         return servicoService.getServicoById(id);
     }
 
@@ -61,13 +62,13 @@ public class ServicoController {
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ServicoResponse putServico(@PathVariable Integer id, @RequestBody @Valid ServicoRequest request){
+    public ServicoResponse putServico(@PathVariable UUID id, @RequestBody @Valid ServicoRequest request){
         return servicoService.putServico(id, request);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public String deleteServico(@PathVariable Integer id){
+    public String deleteServico(@PathVariable UUID id){
         return servicoService.deleteServico(id);
     }
 }

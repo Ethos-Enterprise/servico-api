@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -29,7 +30,7 @@ public class ServicoService {
         final List<ServicoEntity> listaServicos = repository.findAll();
         return listaServicos.stream().map(ServicoResponse::new).toList();
     }
-    public ServicoResponse getServicoById(Integer id){
+    public ServicoResponse getServicoById(UUID id){
         Optional<ServicoEntity> servico = repository.findById(id);
         if (servico.isEmpty()){
             throw new ServicoNotFoundException(String.format("Serviço não encontrado."));
@@ -77,7 +78,7 @@ public class ServicoService {
         return servico.stream().map(ServicoResponse::new).toList();
     }
 
-    public ServicoResponse putServico(Integer id, ServicoRequest request) {
+    public ServicoResponse putServico(UUID id, ServicoRequest request) {
         final Optional<ServicoEntity> servicoAtualizado = repository.findById(id);
 
         if (servicoAtualizado.isEmpty()){
@@ -100,7 +101,7 @@ public class ServicoService {
         return servicoAtualizado.map(ServicoResponse::new).get();
     }
 
-    public String deleteServico(Integer id){
+    public String deleteServico(UUID id){
         repository.deleteById(id);
         return "Serviço deletado com sucesso.";
     }
