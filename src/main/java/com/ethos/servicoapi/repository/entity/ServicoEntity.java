@@ -1,9 +1,11 @@
 package com.ethos.servicoapi.repository.entity;
 
+import com.ethos.servicoapi.repository.entity.esgenum.AreaAtuacaoEsgEnum;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.Immutable;
 
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -15,7 +17,7 @@ import java.util.UUID;
 @Immutable
 public class ServicoEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
 
     String nome;
@@ -24,7 +26,9 @@ public class ServicoEntity {
 
     Double valor;
 
-    String areaAtuacaoEsg;
+    // @ElementCollection
+    // @Column(name = "area_atuacao_esg")
+    List<String> areaAtuacaoEsg;
 
     UUID fkPrestadoraServico;
 }

@@ -2,6 +2,7 @@ package com.ethos.servicoapi.controller;
 
 import com.ethos.servicoapi.controller.request.ServicoRequest;
 import com.ethos.servicoapi.controller.response.ServicoResponse;
+import com.ethos.servicoapi.repository.entity.esgenum.AreaAtuacaoEsgEnum;
 import com.ethos.servicoapi.service.ServicoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -56,7 +57,7 @@ public class ServicoController {
 
     @GetMapping("/busca-area-atuacao")
     @ResponseStatus(HttpStatus.OK)
-    public List<ServicoResponse> getServicoByAreaAtuacaoEsg(@RequestParam String areaAtuacaoEsg){
+    public List<ServicoResponse> getServicoByAreaAtuacaoEsg(@RequestParam List<String> areaAtuacaoEsg){
         return servicoService.getServicoByAreaAtuacaoEsg(areaAtuacaoEsg);
     }
 
