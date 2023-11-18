@@ -14,18 +14,23 @@ import com.ethos.servicoapi.repository.entity.ServicoEntity;
 import com.ethos.servicoapi.repository.entity.esgenum.AreaAtuacaoEsgEnum;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Import(ServicoService.ServicoConfig.class)
 public class ServicoService {
 
     private final ServicoRepository repository;
     private final PrestadoraApiClient client;
+    private final ServicoFilaObj filaObj;
 
     public ServicoResponse postServico(ServicoRequest request) {
         final ServicoEntity novoServico = ServicoMapper.of(request);
@@ -98,31 +103,55 @@ public class ServicoService {
     }
 
     public ServicoResponse putServico(UUID id, ServicoRequest request) {
-        final Optional<ServicoEntity> servicoAtualizado = repository.findById(id);
+        Optional<ServicoEntity> servicoAtualizado = repository.findById(id);
 
-        if (servicoAtualizado.isEmpty()){
+        if (servicoAtualizado.isEmpty()) {
             throw new ServicoNotFoundException(String.format("Serviço não encontrado."));
         }
-        if (request.nomeServico() != null && !request.nomeServico().isEmpty()) {
-            servicoAtualizado.get().setNome(request.nomeServico());
-        }
-        if (request.descricao() != null && !request.descricao().isEmpty()){
-            servicoAtualizado.get().setDescricao(request.descricao());
-        }
-        if (request.valor() != null && request.valor() > 0){
-            servicoAtualizado.get().setValor(request.valor());
-        }
-        if (request.areaAtuacaoEsg() != null && !request.areaAtuacaoEsg().isEmpty()){
-            List<String> areaAtuacaoEsg = request.areaAtuacaoEsg().stream().map(areaAtuacaoEsgEnum -> areaAtuacaoEsgEnum.toString()).toList();
-            servicoAtualizado.get().setAreaAtuacaoEsg(areaAtuacaoEsg);
+
+        ServicoEntity entity = servicoAtualizado.get();
+
+        if (!request.nomeServico().isEmpty()) {
+            entity.setNome(request.nomeServico());
         }
 
-        repository.save(servicoAtualizado.get());
-        return servicoAtualizado.map(ServicoResponse::new).get();
+        if (!request.descricao().isEmpty()) {
+            entity.setDescricao(request.descricao());
+        }
+
+        if (request.valor() > 0) {
+            entity.setValor(request.valor());
+        }
+
+        if (!request.areaAtuacaoEsg().isEmpty()) {
+            List<AreaAtuacaoEsgEnum> areaAtuacaoEsgList = request.areaAtuacaoEsg().stream().toList();
+            entity.setAreaAtuacaoEsg(areaAtuacaoEsgList);
+        }
+
+        repository.save(entity);
+        return new ServicoResponse(entity);
     }
 
-    public String deleteServico(UUID id){
+    public void deleteServico(UUID id){
         repository.deleteById(id);
-        return "Serviço deletado com sucesso.";
+    }
+
+    public List<ServicoResponse> filaServico(ServicoResponse servicoResponse){
+        List<ServicoResponse> filaServicoResponse = new ArrayList<>();
+
+        if (!filaObj.isFull()){
+            filaServicoResponse.add(filaObj.insert(servicoResponse));
+        } else {
+            filaServicoResponse.remove(filaObj.poll());
+        }
+        return filaServicoResponse.stream().toList();
+    }
+
+    public static class ServicoConfig {
+
+        @Bean
+        public ServicoFilaObj servicoFilaObj() {
+            return new ServicoFilaObj(); // Substitua pelo construtor real da sua classe
+        }
     }
 }

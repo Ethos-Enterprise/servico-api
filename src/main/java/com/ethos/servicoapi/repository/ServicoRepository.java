@@ -1,5 +1,6 @@
 package com.ethos.servicoapi.repository;
 
+import com.ethos.servicoapi.controller.response.ServicoResponse;
 import com.ethos.servicoapi.repository.entity.ServicoEntity;
 import com.ethos.servicoapi.repository.entity.esgenum.AreaAtuacaoEsgEnum;
 import org.springframework.data.jpa.repository.JpaRepository;

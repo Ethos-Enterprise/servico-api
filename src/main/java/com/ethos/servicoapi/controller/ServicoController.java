@@ -61,6 +61,12 @@ public class ServicoController {
         return servicoService.getServicoByAreaAtuacaoEsg(areaAtuacaoEsg);
     }
 
+    @GetMapping("fila-exibicao-curtidas")
+    @ResponseStatus(HttpStatus.OK)
+    public List<ServicoResponse> getFilaServico(@RequestBody ServicoResponse servicoResponse){
+        return servicoService.filaServico(servicoResponse);
+    }
+
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ServicoResponse putServico(@PathVariable UUID id, @RequestBody @Valid ServicoRequest request){
@@ -69,7 +75,7 @@ public class ServicoController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public String deleteServico(@PathVariable UUID id){
-        return servicoService.deleteServico(id);
+    public void deleteServico(@PathVariable UUID id){
+        servicoService.deleteServico(id);
     }
 }

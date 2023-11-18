@@ -17,7 +17,7 @@ import java.util.UUID;
 @Immutable
 public class ServicoEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     UUID id;
 
     String nome;
@@ -26,9 +26,11 @@ public class ServicoEntity {
 
     Double valor;
 
-    // @ElementCollection
-    // @Column(name = "area_atuacao_esg")
-    List<String> areaAtuacaoEsg;
+    @ElementCollection(targetClass = AreaAtuacaoEsgEnum.class)
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "servico_area_atuacao_esg", joinColumns = @JoinColumn(name = "servico_id"))
+    @Column(name = "area_atuacao_esg")
+    List<AreaAtuacaoEsgEnum> areaAtuacaoEsg;
 
     UUID fkPrestadoraServico;
 }
