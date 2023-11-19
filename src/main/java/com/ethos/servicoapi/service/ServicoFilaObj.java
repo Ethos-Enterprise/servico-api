@@ -9,7 +9,7 @@ public class ServicoFilaObj <T>{
 
     public ServicoFilaObj() {
         this.tamanho = 0;
-        this.fila = (T[]) new ServicoResponse[30];
+        this.fila = (T[]) new ServicoResponse[10];
     }
 
     public boolean isEmpty() {

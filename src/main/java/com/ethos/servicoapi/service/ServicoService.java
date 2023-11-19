@@ -151,7 +151,7 @@ public class ServicoService {
 
         @Bean
         public ServicoFilaObj servicoFilaObj() {
-            return new ServicoFilaObj(); // Substitua pelo construtor real da sua classe
+            return new ServicoFilaObj();
         }
     }
 }

@@ -2,7 +2,6 @@ package com.ethos.servicoapi.controller;
 
 import com.ethos.servicoapi.controller.request.ServicoRequest;
 import com.ethos.servicoapi.controller.response.ServicoResponse;
-import com.ethos.servicoapi.repository.entity.esgenum.AreaAtuacaoEsgEnum;
 import com.ethos.servicoapi.service.ServicoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +13,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping(path = "/v1.0/servicos")
-@RequiredArgsConstructor // Injeção de dependência automática de todos os atributos
+@RequiredArgsConstructor
 public class ServicoController {
 
     private final ServicoService servicoService;
