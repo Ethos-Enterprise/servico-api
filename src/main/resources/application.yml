@@ -4,14 +4,14 @@ spring:
   application:
     name: servico-api
 
-    cloud:
-      openfeign:
-        client:
-          config:
-            prestadoraClient:
-              connectTimeout: 3000
-              readTimeout: 500
-              loggerLevel: BASIC
+  cloud:
+     openfeign:
+       client:
+         config:
+           prestadoraClient:
+             connectTimeout: 3000
+             readTimeout: 500
+             loggerLevel: BASIC
 
   datasource:
     url: jdbc:postgresql://postgres-servico:5432/postgres
