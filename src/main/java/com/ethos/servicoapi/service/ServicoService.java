@@ -102,6 +102,14 @@ public class ServicoService {
         return servico.stream().map(ServicoResponse::new).toList();
     }
 
+    public List<ServicoResponse> getServicoByFkPrestadoraServico(UUID fkPrestadoraServico){
+        List<ServicoEntity> listaServicoPorEmpresa = repository.findByFkPrestadoraServico(fkPrestadoraServico);
+        if (listaServicoPorEmpresa.isEmpty()){
+            throw new ServicoException("Não foram encontrados serviços com essa fkEmpresa")
+        }
+        return listaServicoPorEmpresa.stream().map(ServicoResponse::new).toList();
+    }
+
     public ServicoResponse putServico(UUID id, ServicoRequest request) {
         Optional<ServicoEntity> servicoAtualizado = repository.findById(id);
 
@@ -148,7 +156,6 @@ public class ServicoService {
     }
 
     public static class ServicoConfig {
-
         @Bean
         public ServicoFilaObj servicoFilaObj() {
             return new ServicoFilaObj();

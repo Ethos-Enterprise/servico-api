@@ -19,6 +19,8 @@ public interface ServicoRepository extends JpaRepository<ServicoEntity, UUID> {
 
     List<ServicoEntity> findByNomeContainsIgnoreCaseAndDescricaoContainsIgnoreCase(String nome, String descricao);
 
+    List<ServicoEntity> findByFkPrestadoraServico(UUID fkPrestadoraServico);
+
     @Query("SELECT s FROM ServicoEntity s WHERE :areaAtuacaoEsg MEMBER OF s.areaAtuacaoEsg")
     List<ServicoEntity> findByAreaAtuacaoEsg(@Param("areaAtuacaoEsg") List<String> areaAtuacaoEsg);
 }

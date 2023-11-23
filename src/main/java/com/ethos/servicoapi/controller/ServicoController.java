@@ -54,6 +54,12 @@ public class ServicoController {
         return servicoService.getServicoByValor(valor);
     }
 
+    @GetMapping("/busca-por-nome-descricao")
+    @ResponseStatus(HttpStatus.OK)
+    public List<ServicoResponse> getServicoByNomeAndDescricao(@RequestParam String nome, @RequestParam String descricao){
+        return servicoService.getServicoByNomeAndDescricao(nome, descricao);
+    }
+
     @GetMapping("/busca-area-atuacao")
     @ResponseStatus(HttpStatus.OK)
     public List<ServicoResponse> getServicoByAreaAtuacaoEsg(@RequestParam List<String> areaAtuacaoEsg){
