@@ -66,10 +66,16 @@ public class ServicoController {
         return servicoService.getServicoByAreaAtuacaoEsg(areaAtuacaoEsg);
     }
 
-    @GetMapping("fila-exibicao-curtidas")
+    @GetMapping("/fila-exibicao-curtidas")
     @ResponseStatus(HttpStatus.OK)
     public List<ServicoResponse> getFilaServico(@RequestBody ServicoResponse servicoResponse){
         return servicoService.filaServico(servicoResponse);
+    }
+
+    @GetMapping("/lista-servicos/{fkPrestadoraServico}")
+    @ResponseStatus
+    public List<ServicoResponse> getServicoByFkPrestadoraServico(@RequestParam UUID fkPrestadoraServico){
+        return servicoService.getServicoByFkPrestadoraServico(fkPrestadoraServico);
     }
 
     @PutMapping("/{id}")
