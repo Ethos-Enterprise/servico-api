@@ -105,7 +105,7 @@ public class ServicoService {
     public List<ServicoResponse> getServicoByFkPrestadoraServico(UUID fkPrestadoraServico){
         List<ServicoEntity> listaServicoPorEmpresa = repository.findByFkPrestadoraServico(fkPrestadoraServico);
         if (listaServicoPorEmpresa.isEmpty()){
-            throw new ServicoException("Não foram encontrados serviços com essa fkEmpresa")
+            throw new ServicoException("Não foram encontrados serviços com essa fkEmpresa");
         }
         return listaServicoPorEmpresa.stream().map(ServicoResponse::new).toList();
     }
