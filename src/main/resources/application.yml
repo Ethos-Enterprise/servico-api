@@ -1,20 +1,20 @@
 server:
-  port: 8081
+  port: 8088
 spring:
   application:
     name: servico-api
 
-  cloud:
-     openfeign:
-       client:
-         config:
-           prestadoraClient:
-             connectTimeout: 3000
-             readTimeout: 500
-             loggerLevel: BASIC
+    cloud:
+      openfeign:
+        client:
+          config:
+            prestadoraClient:
+              connectTimeout: 3000
+              readTimeout: 500
+              loggerLevel: BASIC
 
   datasource:
-    url: jdbc:postgresql://postgres-servico:5432/postgres
+    url: jdbc:postgresql://localhost:5436/postgres
     username: admin
     password: senha123
 
@@ -22,7 +22,8 @@ spring:
   jpa:
     generate-ddl: false
     show-sql: true
+
 eureka:
   client:
     service-url:
-      defaultZone: http://172.23.0.1:8761/eureka/
+      defaultZone: http://localhost:8761/eureka

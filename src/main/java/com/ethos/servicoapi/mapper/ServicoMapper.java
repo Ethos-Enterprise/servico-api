@@ -10,12 +10,12 @@ public class ServicoMapper {
 
     public static ServicoEntity of(ServicoRequest servicoRequest){
         ServicoEntity servicoEntity = new ServicoEntity();
-        List<AreaAtuacaoEsgEnum> areaAtuacaoEsg = servicoRequest.areaAtuacaoEsg().stream().map(areaAtuacaoEsgEnum -> areaAtuacaoEsgEnum).toList();
+        //List<AreaAtuacaoEsgEnum> areaAtuacaoEsg = servicoRequest.areaAtuacaoEsg().stream().map(areaAtuacaoEsgEnum -> areaAtuacaoEsgEnum).toList();
 
         servicoEntity.setNome(servicoRequest.nomeServico());
         servicoEntity.setDescricao(servicoRequest.descricao());
         servicoEntity.setValor(servicoRequest.valor());
-        servicoEntity.setAreaAtuacaoEsg(areaAtuacaoEsg);
+        servicoEntity.setAreaAtuacaoEsg(servicoRequest.areaAtuacaoEsg());
         servicoEntity.setFkPrestadoraServico(servicoRequest.fkPrestadoraServico());
 
         return servicoEntity;

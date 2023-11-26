@@ -60,9 +60,15 @@ public class ServicoController {
         return servicoService.getServicoByNomeAndDescricao(nome, descricao);
     }
 
+    //@GetMapping("/busca-area-atuacao")
+    //@ResponseStatus(HttpStatus.OK)
+    //public List<ServicoResponse> getServicoByAreaAtuacaoEsg(@RequestParam List<String> areaAtuacaoEsg){
+    //    return servicoService.getServicoByAreaAtuacaoEsg(areaAtuacaoEsg);
+    //}
+
     @GetMapping("/busca-area-atuacao")
     @ResponseStatus(HttpStatus.OK)
-    public List<ServicoResponse> getServicoByAreaAtuacaoEsg(@RequestParam List<String> areaAtuacaoEsg){
+    public List<ServicoResponse> getServicoByAreaAtuacaoEsg(@RequestParam String areaAtuacaoEsg){
         return servicoService.getServicoByAreaAtuacaoEsg(areaAtuacaoEsg);
     }
 
