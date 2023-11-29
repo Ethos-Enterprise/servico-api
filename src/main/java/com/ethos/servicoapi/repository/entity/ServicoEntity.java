@@ -26,11 +26,13 @@ public class ServicoEntity {
 
     Double valor;
 
-    @ElementCollection(targetClass = AreaAtuacaoEsgEnum.class)
-    @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "servico_area_atuacao_esg", joinColumns = @JoinColumn(name = "servico_id"))
-    @Column(name = "area_atuacao_esg")
-    List<AreaAtuacaoEsgEnum> areaAtuacaoEsg;
+    //@ElementCollection(targetClass = AreaAtuacaoEsgEnum.class)
+    //@Enumerated(EnumType.STRING)
+    //@CollectionTable(name = "servico_area_atuacao_esg", joinColumns = @JoinColumn(name = "servico_id"))
+    //@Column(name = "area_atuacao_esg")
+    //List<AreaAtuacaoEsgEnum> areaAtuacaoEsg;
+
+    String areaAtuacaoEsg;
 
     UUID fkPrestadoraServico;
 }

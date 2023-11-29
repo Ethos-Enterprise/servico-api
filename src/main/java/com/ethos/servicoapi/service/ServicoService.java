@@ -94,7 +94,15 @@ public class ServicoService {
         return servico.stream().map(ServicoResponse::new).toList();
     }
 
-    public List<ServicoResponse> getServicoByAreaAtuacaoEsg(List<String> areaAtuacaoEsg){
+    //public List<ServicoResponse> getServicoByAreaAtuacaoEsg(List<String> areaAtuacaoEsg){
+    //    List<ServicoEntity> servico = repository.findByAreaAtuacaoEsg(areaAtuacaoEsg);
+    //    if(servico.isEmpty()){
+    //        throw new ServicoException(String.format("O serviço com a área de atuação %s não existe", areaAtuacaoEsg));
+    //    }
+    //    return servico.stream().map(ServicoResponse::new).toList();
+    //}
+
+    public List<ServicoResponse> getServicoByAreaAtuacaoEsg(String areaAtuacaoEsg){
         List<ServicoEntity> servico = repository.findByAreaAtuacaoEsg(areaAtuacaoEsg);
         if(servico.isEmpty()){
             throw new ServicoException(String.format("O serviço com a área de atuação %s não existe", areaAtuacaoEsg));
@@ -132,8 +140,9 @@ public class ServicoService {
         }
 
         if (!request.areaAtuacaoEsg().isEmpty()) {
-            List<AreaAtuacaoEsgEnum> areaAtuacaoEsgList = request.areaAtuacaoEsg().stream().toList();
-            entity.setAreaAtuacaoEsg(areaAtuacaoEsgList);
+        //    List<AreaAtuacaoEsgEnum> areaAtuacaoEsgList = request.areaAtuacaoEsg().stream().toList();
+        //    entity.setAreaAtuacaoEsg(areaAtuacaoEsgList);
+            entity.setAreaAtuacaoEsg(request.areaAtuacaoEsg());
         }
 
         repository.save(entity);

@@ -21,6 +21,8 @@ public interface ServicoRepository extends JpaRepository<ServicoEntity, UUID> {
 
     List<ServicoEntity> findByFkPrestadoraServico(UUID fkPrestadoraServico);
 
-    @Query("SELECT s FROM ServicoEntity s WHERE :areaAtuacaoEsg MEMBER OF s.areaAtuacaoEsg")
-    List<ServicoEntity> findByAreaAtuacaoEsg(@Param("areaAtuacaoEsg") List<String> areaAtuacaoEsg);
+    //@Query("SELECT s FROM ServicoEntity s WHERE :areaAtuacaoEsg MEMBER OF s.areaAtuacaoEsg")
+    //List<ServicoEntity> findByAreaAtuacaoEsg(@Param("areaAtuacaoEsg") List<String> areaAtuacaoEsg);
+
+    List<ServicoEntity> findByAreaAtuacaoEsg(String areaAtuacaoEsg);
 }

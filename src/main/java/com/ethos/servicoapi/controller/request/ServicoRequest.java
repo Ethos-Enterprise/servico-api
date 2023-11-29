@@ -19,7 +19,9 @@ public record ServicoRequest(
         @Positive
         Double valor,
 
-        List<AreaAtuacaoEsgEnum> areaAtuacaoEsg,
+        @NotNull
+        //List<AreaAtuacaoEsgEnum> areaAtuacaoEsg,
+        String  areaAtuacaoEsg,
 
         @NotNull
         UUID fkPrestadoraServico){
