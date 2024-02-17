@@ -35,16 +35,16 @@ public class ServicoService {
     public ServicoResponse postServico(ServicoRequest request) {
         final ServicoEntity novoServico = ServicoMapper.of(request);
 
-        try {
-            Prestadora prestadora = client.getPrestadoraById(request.fkPrestadoraServico());
-
-            String statusAprovacao = prestadora.statusAprovacao();
-            if (!statusAprovacao.equals("APROVADO")){
-                throw new PrestadoraNaoAprovadaException("Prestadora não aprovada");
-            }
-        } catch (FeignException e){
-            throw new PrestadoraNotFoundException(e.getMessage());
-        }
+//        try {
+//            Prestadora prestadora = client.getPrestadoraById(request.fkPrestadoraServico());
+//
+//            String statusAprovacao = prestadora.statusAprovacao();
+//            if (!statusAprovacao.equals("APROVADO")){
+//                throw new PrestadoraNaoAprovadaException("Prestadora não aprovada");
+//            }
+//        } catch (FeignException e){
+//            throw new PrestadoraNotFoundException(e.getMessage());
+//        }
 
         repository.save(novoServico);
         return new ServicoResponse(novoServico);
