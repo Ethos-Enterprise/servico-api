@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.UUID;
 
-@FeignClient(name = "prestadora-api", url = "http://localhost:8080/v1.0/prestadoras")
+@FeignClient(name = "prestadora-api", url = "http://prestadora-api:8085/v1.0/prestadoras")
 public interface PrestadoraApiClient {
     @GetMapping("/{id}")
     Prestadora getPrestadoraById(@PathVariable(value = "id") UUID id);
