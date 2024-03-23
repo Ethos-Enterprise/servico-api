@@ -80,7 +80,7 @@ public class ServicoController {
 
     @GetMapping("/lista-servicos/{fkPrestadoraServico}")
     @ResponseStatus
-    public List<ServicoResponse> getServicoByFkPrestadoraServico(@RequestParam UUID fkPrestadoraServico){
+    public List<ServicoResponse> getServicoByFkPrestadoraServico(@PathVariable UUID fkPrestadoraServico){
         return servicoService.getServicoByFkPrestadoraServico(fkPrestadoraServico);
     }
 
